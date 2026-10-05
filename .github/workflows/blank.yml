@@ -1,0 +1,25 @@
+name: Compilar Pochi OS APK
+
+on:
+  push:
+    branches: [ "principal" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Preparar y empaquetar
+        run: |
+          echo "Pochi OS listo para compilar"
+          ls -la
+          
