@@ -1,4 +1,4 @@
-name: Compilar Pochi OS APK
+name: Compilador Pochi OS APK
 
 on:
   push:
@@ -18,8 +18,18 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Preparar y empaquetar
+      - name: Instalar herramienta de compilacion web a APK
         run: |
-          echo "Pochi OS listo para compilar"
-          ls -la
+          npm install -g nativefier
+
+      - name: Compilar Pochi OS a APK
+        run: |
+          nativefier --name "PochiOS" . ./output_app --ignore-certificate
+          ls -la ./output_app
+
+      - name: Subir APK generado
+        uses: actions/upload-artifact@v4
+        with:
+          name: PochiOS-APK
+          path: output_app/
           
